@@ -105,7 +105,7 @@ const items = [
         name: "Huawei P10 4/32GB Black + dėklas Huawei Smart View Cover!"
     },
     {
-        ratingRevievs: "71 отзыв", price: { oldPrice: "299 EUR", newPrice: "199 EUR" },
+        ratingRevievs: "71 atsiliepimas", price: { oldPrice: "299 EUR", newPrice: "199 EUR" },
         name: "LG K5 X220ds Gold"
     },
     {
@@ -134,3 +134,56 @@ const items = [
     }
 ];
 
+function sortByFeedback(arr) {
+    const temp = JSON.parse(JSON.stringify(arr));
+    //objekto kopija. Stringify pavercia i json, parse atgal i objekta
+
+    temp.forEach(item => {
+        item.ratingRevievs = +item.ratingRevievs.replace(/\D/g, '');
+        if (typeof (item.price) === "string") {
+            item.price = +item.price.replace(/\D/g, '');
+        } else {
+            item.price = +item.price.newPrice.replace(/\D/g, '');
+        }
+    });
+
+    temp.sort((a, b) => a.ratingRevievs > b.ratingRevievs ? 1 : -1);
+
+    document.getElementById('sortedItemsList').innerHTML = '';
+
+    temp.forEach(item => {
+        document.getElementById('sortedItemsList').innerHTML += `
+            <h3>${item.name}</h3>
+            <div> Price: ${item.price}EUR</div>
+            <div> Feedbacks: ${item.ratingRevievs}</div>
+        `;
+    });
+}
+
+function sortByPrice(arr) {
+    const temp = JSON.parse(JSON.stringify(arr));
+
+    temp.forEach(item => {
+        if (typeof (item.price) === "string") {
+            item.price = +item.price.replace(/\D/g, '');
+        } else {
+            item.price = +item.price.newPrice.replace(/\D/g, '');
+        }
+    });
+
+    temp.sort((a, b) => a.price > b.price ? 1 : -1);
+
+    document.getElementById('sortedItemsList').innerHTML = '';
+
+    temp.forEach(item => {
+        document.getElementById('sortedItemsList').innerHTML += `
+            <h3>${item.name}</h3>
+            <div> Price: ${item.price}EUR</div>
+            <div> Feedbacks: ${item.ratingRevievs}</div>
+        `;
+    });
+
+}
+
+document.getElementById('sortByFeedback').addEventListener('click', () => sortByFeedback(items));
+document.getElementById('sortByPrice').addEventListener('click', () => sortByPrice(items));
