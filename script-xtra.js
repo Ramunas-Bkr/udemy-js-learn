@@ -1,7 +1,7 @@
 // Duotas objektų masyvas.Išrūčiuoti prekes pagal:
 // 1.) atsiliepimų kiekį
 // 2.) pagal kainas (jeigu kainos DataView, tai imti newPrice)
-// atsakymus išvetsi į puslapį paspaudus atitinkamą mygtuką
+// atsakymus išvesti į puslapį paspaudus atitinkamą mygtuką
 
 const items = [
     {
@@ -187,3 +187,5 @@ function sortByPrice(arr) {
 
 document.getElementById('sortByFeedback').addEventListener('click', () => sortByFeedback(items));
 document.getElementById('sortByPrice').addEventListener('click', () => sortByPrice(items));
+
+
